@@ -40,7 +40,7 @@ public class App {
 //        ProductLes11 p = new ProductLes11();
 //        p.setId(2L);
 //        p.setName("p1");
-//        
+//
 //        em.persist(p);
 //        em.flush();
 //
@@ -48,8 +48,12 @@ public class App {
 
 //        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
         
-        ProductLes11 p2 = em.getReference(ProductLes11.class, 2L);
-        System.out.println("p2 = " + p2);
+//        ProductLes11 p2 = em.getReference(ProductLes11.class, 2L);
+//        System.out.println("p2 = " + p2);
+
+        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
+
+        System.out.println("em.contains(p2) = " + em.contains(p2));
 
 
         em.getTransaction().commit();
@@ -100,6 +104,15 @@ public class App {
                 System.out.println("p2 = " + p2);
              
                     Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
+         */
+        
+        /*
+           em.contains(p2)   = true/false
+           
+           перевіряє чи у контексті є ця ентіті
+        
+            Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
+            em.contains(p2) = true
          */
     }
 }
