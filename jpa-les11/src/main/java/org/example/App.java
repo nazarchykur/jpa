@@ -114,5 +114,9 @@ public class App {
             Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
             em.contains(p2) = true
          */
+        
+        /*
+            detach(someEntity)  - видалити з контексту цю ентіті (НЕ з БД)
+         */
     }
 }
