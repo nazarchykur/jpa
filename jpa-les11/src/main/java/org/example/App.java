@@ -46,7 +46,10 @@ public class App {
 //
 //        System.out.println("some commit");
 
-        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
+//        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
+        
+        ProductLes11 p2 = em.getReference(ProductLes11.class, 2L);
+        System.out.println("p2 = " + p2);
 
 
         em.getTransaction().commit();
@@ -85,6 +88,18 @@ public class App {
            відбудеться селект з БД і тепер у контексті буде ця ентіті     
                 
                 Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
+         */
+        
+        
+        /*
+            1) ProductLes11 p2 = em.getReference(ProductLes11.class, 2L);
+            
+                    працює як LAZY find , тобто якщо ця змінна p2 ніде не використовується, то ніякого select не буде
+            
+             2) ProductLes11 p2 = em.getReference(ProductLes11.class, 2L);
+                System.out.println("p2 = " + p2);
+             
+                    Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
          */
     }
 }
