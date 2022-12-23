@@ -37,14 +37,16 @@ public class App {
 
         em.getTransaction().begin();
 
-        ProductLes11 p = new ProductLes11();
-        p.setId(2L);
-        p.setName("p1");
-        
-        em.persist(p);
-        em.flush();
+//        ProductLes11 p = new ProductLes11();
+//        p.setId(2L);
+//        p.setName("p1");
+//        
+//        em.persist(p);
+//        em.flush();
+//
+//        System.out.println("some commit");
 
-        System.out.println("some commit");
+        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
 
 
         em.getTransaction().commit();
@@ -75,6 +77,14 @@ public class App {
         
                 1) Hibernate: insert into product_les11 (name, id) values (?, ?)
                 2) some commit
+         */
+        
+        /*
+           em.find(ProductLes11.class, 2L);
+           
+           відбудеться селект з БД і тепер у контексті буде ця ентіті     
+                
+                Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
          */
     }
 }
