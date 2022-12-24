@@ -58,12 +58,16 @@ public class App {
 //        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
 //        em.remove(p2);
 
-        ProductLes11 p3 = new ProductLes11();
-        p3.setId(3L);
+//        ProductLes11 p3 = new ProductLes11();
+//        p3.setId(3L);
+//        
+//        em.merge(p3); // adds in the context the detached instance
+//        em.remove(p3); // only now we will be able to remove
+
+        ProductLes11 p3 = em.find(ProductLes11.class, 3L);
+        p3.setName("p3333");
         
-        em.merge(p3); // adds in the context the detached instance
-        em.remove(p3); // only now we will be able to remove
-                
+        em.refresh(p3); // updates the instance with what we have in the DB => name did not changed (p33)
 
         em.getTransaction().commit();
 
@@ -152,6 +156,10 @@ public class App {
               em.contains(someEntity)  після merge(someEntity) всеодно поверне false, тому що 
               contains(someEntity) перевіряє чи ця ентіті з початку є у контексті чи ні
             
+         */
+        
+        /*
+              refresh(someEntity)  - обновить це ентіті до стану такого як у БД
          */
     }
 }
