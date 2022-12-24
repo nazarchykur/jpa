@@ -75,25 +75,42 @@ public class App {
 //            query.getSingleResult() = 120.0
 //         */
 
-        TypedQuery<ProductLes12> namedQuery = em.createNamedQuery("Product.all", ProductLes12.class);
-        namedQuery.getResultList().forEach(System.out::println);
+//        TypedQuery<ProductLes12> namedQuery = em.createNamedQuery("Product.all", ProductLes12.class);
+//        namedQuery.getResultList().forEach(System.out::println);
+//        
+//        /*
+//        
+//        + перевіряються всі NamedQuery при старті App (якщо щось не правильно то зразу буде відомо)
+//        + працює подібно як createQuery, просто перший параметр - це назва NamedQuery
+//        
+//        - якщо Query великі або їх досить багато, то не зручно і не читабельно у коді
+//        
+//            
+//            Hibernate: select productles0_.id as id1_0_, productles0_.name as name2_0_, productles0_.price as price3_0_ from product_les12 productles0_
+//            ProductLes12{id=1, name='p1', price=10.0}
+//            ProductLes12{id=2, name='p2', price=20.0}
+//            ProductLes12{id=3, name='p3', price=30.0}
+//            ProductLes12{id=4, name='p4', price=40.0}
+//            ProductLes12{id=5, name='p5', price=50.0}
+//         */
+
+        String sql = "SELECT * FROM product_les12";
+        Query nativeQuery = em.createNativeQuery(sql, ProductLes12.class);
+        nativeQuery.getResultList().forEach(System.out::println);
         
         /*
-        
-        + перевіряються всі NamedQuery при старті App (якщо щось не правильно то зразу буде відомо)
-        + працює подібно як createQuery, просто перший параметр - це назва NamedQuery
-        
-        - якщо Query великі або їх досить багато, то не зручно і не читабельно у коді
-        
+        createNativeQuery
             
-            Hibernate: select productles0_.id as id1_0_, productles0_.name as name2_0_, productles0_.price as price3_0_ from product_les12 productles0_
-            ProductLes12{id=1, name='p1', price=10.0}
-            ProductLes12{id=2, name='p2', price=20.0}
-            ProductLes12{id=3, name='p3', price=30.0}
-            ProductLes12{id=4, name='p4', price=40.0}
-            ProductLes12{id=5, name='p5', price=50.0}
-         */
+            якщо потрібно використати, то можна , але краще уникати і вибарати JPQL
         
+        Hibernate: SELECT * FROM product_les12
+        ProductLes12{id=1, name='p1', price=10.0}
+        ProductLes12{id=2, name='p2', price=20.0}
+        ProductLes12{id=3, name='p3', price=30.0}
+        ProductLes12{id=4, name='p4', price=40.0}
+        ProductLes12{id=5, name='p5', price=50.0}
+         */
+
         em.getTransaction().commit();
         em.close();
         emf.close();
