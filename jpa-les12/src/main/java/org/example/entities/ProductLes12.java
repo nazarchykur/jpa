@@ -3,10 +3,13 @@ package org.example.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "product_les12")
+@NamedQuery(name = "Product.all", query = "select p from ProductLes12 p")
+@NamedQuery(name = "Product.findById", query = "select p from ProductLes12 p where p.id = :id")
 public class ProductLes12 {
     @Id
     @Column(name = "id", nullable = false)
