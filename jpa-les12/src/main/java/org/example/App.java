@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.entities.EmployeeLes12;
 import org.example.entities.ProductLes12;
 
 import javax.persistence.EntityManager;
@@ -94,21 +95,40 @@ public class App {
 //            ProductLes12{id=5, name='p5', price=50.0}
 //         */
 
-        String sql = "SELECT * FROM product_les12";
-        Query nativeQuery = em.createNativeQuery(sql, ProductLes12.class);
-        nativeQuery.getResultList().forEach(System.out::println);
+//        String sql = "SELECT * FROM product_les12";
+//        Query nativeQuery = em.createNativeQuery(sql, ProductLes12.class);
+//        nativeQuery.getResultList().forEach(System.out::println);
+//        
+//        /*
+//        createNativeQuery
+//            
+//            якщо потрібно використати, то можна , але краще уникати і вибарати JPQL
+//        
+//        Hibernate: SELECT * FROM product_les12
+//        ProductLes12{id=1, name='p1', price=10.0}
+//        ProductLes12{id=2, name='p2', price=20.0}
+//        ProductLes12{id=3, name='p3', price=30.0}
+//        ProductLes12{id=4, name='p4', price=40.0}
+//        ProductLes12{id=5, name='p5', price=50.0}
+//         */
+
+        String selectJpql = "Select e from EmployeeLes12 e, DepartmentLes12 d where e.department=d and d.id= :id";
+
+        TypedQuery<EmployeeLes12> query = em.createQuery(selectJpql, EmployeeLes12.class);
+        query.setParameter("id", 1L);
+        
+        query.getResultList().forEach(System.out::println);
         
         /*
-        createNativeQuery
-            
-            якщо потрібно використати, то можна , але краще уникати і вибарати JPQL
+        працюємо з 2 таблицями
+            можна використовувати також всі можливі варіанти:
+                - join (left, right, outer, inner, cross... + fetch left join ...)
+                - union ...
         
-        Hibernate: SELECT * FROM product_les12
-        ProductLes12{id=1, name='p1', price=10.0}
-        ProductLes12{id=2, name='p2', price=20.0}
-        ProductLes12{id=3, name='p3', price=30.0}
-        ProductLes12{id=4, name='p4', price=40.0}
-        ProductLes12{id=5, name='p5', price=50.0}
+        Hibernate: select employeele0_.id as id1_1_, employeele0_.department_id as departme3_1_, employeele0_.name as name2_1_ from employee_les12 employeele0_ cross join department_les12 department1_ where employeele0_.department_id=department1_.id and department1_.id=?
+        Hibernate: select department0_.id as id1_0_0_, department0_.name as name2_0_0_ from department_les12 department0_ where department0_.id=?
+        EmployeeLes12{id=1, name='e1', department=DepartmentLes12{id=1, name='d1'}}
+        EmployeeLes12{id=2, name='e2', department=DepartmentLes12{id=1, name='d1'}}
          */
 
         em.getTransaction().commit();
