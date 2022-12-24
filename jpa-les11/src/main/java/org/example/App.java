@@ -55,9 +55,15 @@ public class App {
 //
 //        System.out.println("em.contains(p2) = " + em.contains(p2));
 
-        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
-        em.remove(p2);
+//        ProductLes11 p2 = em.find(ProductLes11.class, 2L);
+//        em.remove(p2);
 
+        ProductLes11 p3 = new ProductLes11();
+        p3.setId(3L);
+        
+        em.merge(p3); // adds in the context the detached instance
+        em.remove(p3); // only now we will be able to remove
+                
 
         em.getTransaction().commit();
 
@@ -128,6 +134,24 @@ public class App {
         
             Hibernate: select productles0_.id as id1_0_0_, productles0_.name as name2_0_0_ from product_les11 productles0_ where productles0_.id=?
             Hibernate: delete from product_les11 where id=?
+         */
+        
+        /*
+        
+        merge(someEntity) -  додати цю untouched ентіті до контексту
+                тобто ми знаємо, що ця ентіті з такою-то ID є у БД
+        
+        
+            ProductLes11 p3 = new ProductLes11();
+            p3.setId(3L);
+            
+            em.merge(p3); // adds in the context the detached instance
+            em.remove(p3); // only now we will be able to remove
+            
+         !* 
+              em.contains(someEntity)  після merge(someEntity) всеодно поверне false, тому що 
+              contains(someEntity) перевіряє чи ця ентіті з початку є у контексті чи ні
+            
          */
     }
 }
