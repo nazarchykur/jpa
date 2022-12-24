@@ -51,17 +51,28 @@ public class App {
 //            ProductLes12{id=5, name='p5', price=50.0}
 //         */
 
-        String selectQueryParam = "select p from ProductLes12 p where p.price > :price";
-        TypedQuery<ProductLes12> query = em.createQuery(selectQueryParam, ProductLes12.class);
-        query.setParameter("price", 25d);
+//        String selectQueryParam = "select p from ProductLes12 p where p.price > :price";
+//        TypedQuery<ProductLes12> query = em.createQuery(selectQueryParam, ProductLes12.class);
+//        query.setParameter("price", 25d);
+//
+//        query.getResultList().forEach(System.out::println);
+//        
+//        /*
+//            Hibernate: select productles0_.id as id1_0_, productles0_.name as name2_0_, productles0_.price as price3_0_ from product_les12 productles0_ where productles0_.price>?
+//            ProductLes12{id=3, name='p3', price=30.0}
+//            ProductLes12{id=4, name='p4', price=40.0}
+//            ProductLes12{id=5, name='p5', price=50.0}
+//         */
 
-        query.getResultList().forEach(System.out::println);
+        String getTotalPrice = "select sum(p.price) from ProductLes12 p where p.price > :price";
+        TypedQuery<Double> query = em.createQuery(getTotalPrice, Double.class);
+        query.setParameter("price", 25.0);
+        
+        System.out.println("query.getSingleResult() = " + query.getSingleResult());
         
         /*
-            Hibernate: select productles0_.id as id1_0_, productles0_.name as name2_0_, productles0_.price as price3_0_ from product_les12 productles0_ where productles0_.price>?
-            ProductLes12{id=3, name='p3', price=30.0}
-            ProductLes12{id=4, name='p4', price=40.0}
-            ProductLes12{id=5, name='p5', price=50.0}
+            Hibernate: select sum(productles0_.price) as col_0_0_ from product_les12 productles0_ where productles0_.price>?
+            query.getSingleResult() = 120.0
          */
 
         em.getTransaction().commit();
