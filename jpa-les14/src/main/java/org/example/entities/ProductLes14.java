@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_les14")
-public class ProductLes14 {
+public class ProductLes14 extends GeneralEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,10 +24,7 @@ public class ProductLes14 {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "date_created")
-    private LocalDateTime dateCreated;
-    @Column(name = "last_modified")
-    private LocalDateTime lastModified;
+
 
     /*
         LOAD      -- @PostLoad
@@ -35,16 +32,7 @@ public class ProductLes14 {
         REMOVE    -- @PreRemove @PostRemove
         PERSIST   -- @PrePersist @PostPersist
      */
-    @PrePersist
-    public void prePersist() {
-        this.dateCreated = LocalDateTime.now();
-        this.lastModified = LocalDateTime.now();
-    }
     
-    @PreUpdate
-    public void preUpdate() {
-        this.lastModified = LocalDateTime.now();
-    }
     
     @PostLoad
     public void postLoad() {
@@ -59,11 +47,6 @@ public class ProductLes14 {
     @PostRemove
     public void postRemove(){
         System.out.println("Entity " + this + " was removed.");
-    }
-        
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
     }
 
     public String getName() {
@@ -80,10 +63,6 @@ public class ProductLes14 {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDateTime getLastModified() {
-        return lastModified;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class App2 {
 
         em.getTransaction().begin();
 
-        ProductLes14 p = em.find(ProductLes14.class, 1L); // PostLoad відбудеться зразу після цього селекту
+        ProductLes14 p = em.find(ProductLes14.class, 2L); // PostLoad відбудеться зразу після цього селекту
         p.setName("p1 changed");
 
         em.getTransaction().commit();  // update відбудеться тут

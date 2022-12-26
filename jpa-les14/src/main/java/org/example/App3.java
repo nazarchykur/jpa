@@ -17,7 +17,7 @@ public class App3 {
 
         em.getTransaction().begin();
 
-        ProductLes14 p = em.find(ProductLes14.class, 1L); // PostLoad відбудеться зразу після цього селекту
+        ProductLes14 p = em.find(ProductLes14.class, 2L); // PostLoad відбудеться зразу після цього селекту
         em.remove(p); // PreRemove and PostRemove 
 
         em.getTransaction().commit();  // delete відбудеться тут
