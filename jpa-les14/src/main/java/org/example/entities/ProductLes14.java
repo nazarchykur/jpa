@@ -1,5 +1,6 @@
 package org.example.entities;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Cacheable//@Cacheable(true)
 @Entity
 @Table(name = "product_les14")
 public class ProductLes14 extends GeneralEntity{
